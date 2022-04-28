@@ -1,6 +1,6 @@
 import { UserService } from '../service/user.service';
-import { Controller, Get, Param, Query } from '@nestjs/common';
-import { UserDto } from '../model/dto/user.dto';
+import { Controller, Get, Query } from '@nestjs/common';
+import { UserInfoDto } from '../model/dto/user.info.dto';
 import { UserMapper } from '../../util/mapper/user.mapper';
 import { User } from '../model/user.interface';
 
@@ -12,12 +12,14 @@ export class UserController {
   ) {}
 
   @Get('/get')
-  async getUserById(@Query('id') id: number): Promise<UserDto> {
-    return this.userMapper.domainToDto(await this.userService.getUserInfo(id));
+  async getUserById(@Query('id') id: number): Promise<UserInfoDto> {
+    return this.userMapper.domainToDto(
+      await this.userService.getUserInfoById(id),
+    );
   }
 
   @Get('/get/all')
-  async getAllUsers(): Promise<UserDto[]> {
+  async getAllUsers(): Promise<UserInfoDto[]> {
     const users: User[] = await this.userService.getAllUsers();
     return users.map((user) => this.userMapper.domainToDto(user));
   }

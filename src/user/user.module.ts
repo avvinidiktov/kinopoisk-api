@@ -10,6 +10,6 @@ import { UtilModule } from '../util/util.module';
   controllers: [UserController],
   imports: [TypeOrmModule.forFeature([UserEntity], 'pg_main'), UtilModule],
   providers: [UserService, UserRepository],
-  exports: [UserService],
+  exports: [UserService, UserRepository],
 })
 export class UserModule {}

@@ -1,6 +1,6 @@
 import { User } from '../user.interface';
 
-export class UserDto implements User {
+export class UserInfoDto implements User {
   _id: number;
   _email: string;
   _username: string;

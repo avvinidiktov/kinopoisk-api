@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserEntity } from '../model/entity/user.entity';
 import { Repository } from 'typeorm';
+import { User } from '../model/user.interface';
 
 @Injectable()
 export class UserRepository {
@@ -10,7 +11,7 @@ export class UserRepository {
     private readonly repository: Repository<UserEntity>,
   ) {}
 
-  async save(user: UserEntity): Promise<UserEntity> {
+  async save(user: User): Promise<UserEntity> {
     return await this.repository.save(user).then((result) => {
       return result;
     });
@@ -22,6 +23,10 @@ export class UserRepository {
 
   findById(id: number): Promise<UserEntity> {
     return this.repository.findOne(id);
+  }
+
+  async findByEmail(email: string): Promise<UserEntity> {
+    return await this.repository.findOneOrFail({ _email: email });
   }
 
   async remove(id: number): Promise<boolean> {

@@ -1,5 +1,5 @@
 import { UserDomain } from '../../user/model/domain/user.domain';
-import { UserDto } from '../../user/model/dto/user.dto';
+import { UserInfoDto } from '../../user/model/dto/user.info.dto';
 import { Injectable } from '@nestjs/common';
 import { Builder } from 'builder-pattern';
 import { RegisterRequest } from '../../auth/model/dto/register.request.dto';
@@ -17,7 +17,7 @@ export class UserMapper {
       .build();
   }
 
-  dtoToDomain(userDto: UserDto): UserDomain {
+  dtoToDomain(userDto: UserInfoDto): UserDomain {
     return Builder<UserDomain>()
       ._id(userDto._id)
       ._email(userDto._email)
@@ -26,8 +26,8 @@ export class UserMapper {
       .build();
   }
 
-  domainToDto(user: UserDomain): UserDto {
-    return Builder<UserDto>()
+  domainToDto(user: UserDomain): UserInfoDto {
+    return Builder<UserInfoDto>()
       ._id(user._id)
       ._username(user._username)
       ._firstname(user._firstname)
