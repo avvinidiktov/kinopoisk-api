@@ -1,4 +1,5 @@
 import {
+  BeforeInsert,
   Column,
   CreateDateColumn,
   Entity,
@@ -7,6 +8,7 @@ import {
 } from 'typeorm';
 
 import { User } from '../user.interface';
+import * as bcrypt from 'bcrypt';
 
 @Entity({ name: 'users' })
 export class UserEntity implements User {
@@ -36,4 +38,10 @@ export class UserEntity implements User {
 
   @Column()
   _lastname: string;
+
+  @BeforeInsert()
+  async encryptPassword(): Promise<void> {
+    const salt = await bcrypt.genSalt(10);
+    this._password = await bcrypt.hash(this._password, salt);
+  }
 }

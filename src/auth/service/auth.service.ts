@@ -17,18 +17,12 @@ export class AuthService {
     console.log(registerDto);
 
     const user = this.userMapper.registerRequestToDomain(registerDto);
-    user._password = await this.encryptPassword(user._password);
-
     return await this.userService.saveUser(user);
   }
 
   async authenticateUser(authRequest: AuthRequest): Promise<UserDomain> {
     if (await this.compareCredentials(authRequest))
       return await this.userService.getUserInfoByEmail(authRequest.email);
-  }
-
-  async encryptPassword(password: string): Promise<string> {
-    return await bcrypt.hash(password, await bcrypt.genSalt());
   }
 
   async compareCredentials(authRequest: AuthRequest): Promise<boolean> {
