@@ -17,6 +17,7 @@ export class AuthService {
     console.log(registerDto);
 
     const user = this.userMapper.registerRequestToDomain(registerDto);
+
     return await this.userService.saveUser(user);
   }
 

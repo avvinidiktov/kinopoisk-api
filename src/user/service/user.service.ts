@@ -2,12 +2,17 @@ import { Injectable } from '@nestjs/common';
 import { UserRepository } from '../repository/user.repository';
 import { User } from '../model/user.interface';
 import { UserUpdateDto } from '../model/dto/user.update.dto';
+import { UserDomain } from '../model/domain/user.domain';
+import { UserMapper } from '../../util/mapper/user.mapper';
 
 @Injectable()
 export class UserService {
-  constructor(private userRepository: UserRepository) {}
+  constructor(
+    private userMapper: UserMapper,
+    private userRepository: UserRepository,
+  ) {}
 
-  async saveUser(user: User): Promise<User> {
+  async saveUser(user: UserDomain): Promise<User> {
     return await this.userRepository.save(user);
   }
 
@@ -24,7 +29,7 @@ export class UserService {
   }
 
   async updateUser(updateReq: UserUpdateDto): Promise<User> {
-    const userToUpdate: User = await this.userRepository.findById(updateReq.id);
+    const userToUpdate = await this.userRepository.findById(updateReq.id);
 
     return await this.userRepository.save(userToUpdate);
   }

@@ -12,9 +12,11 @@ export class UserRepository {
   ) {}
 
   async save(user: User): Promise<UserEntity> {
-    return await this.repository.save(user).then((result) => {
-      return result;
-    });
+    return await this.repository
+      .save(this.repository.create(user))
+      .then((result) => {
+        return result;
+      });
   }
 
   findAll(): Promise<UserEntity[]> {

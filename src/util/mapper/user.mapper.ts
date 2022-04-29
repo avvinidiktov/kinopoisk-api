@@ -3,6 +3,7 @@ import { UserInfoDto } from '../../user/model/dto/user.info.dto';
 import { Injectable } from '@nestjs/common';
 import { Builder } from 'builder-pattern';
 import { RegisterRequest } from '../../auth/model/dto/register.request.dto';
+import { UserEntity } from '../../user/model/entity/user.entity';
 
 @Injectable()
 export class UserMapper {
@@ -36,6 +37,17 @@ export class UserMapper {
       ._email(user._email)
       ._lastDateUpdated(user._lastDateUpdated)
       ._createdDate(user._createdDate)
+      .build();
+  }
+
+  domainToEntity(user: UserDomain): UserEntity {
+    return Builder<UserEntity>()
+      ._username(user._username)
+      ._password(user._password)
+      ._birthdate(user._birthdate)
+      ._firstname(user._firstname)
+      ._lastname(user._lastname)
+      ._email(user._email)
       .build();
   }
 }

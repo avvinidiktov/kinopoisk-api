@@ -40,7 +40,7 @@ export class UserEntity implements User {
   _lastname: string;
 
   @BeforeInsert()
-  async encryptPassword(): Promise<void> {
+  async encryptPassword() {
     const salt = await bcrypt.genSalt(10);
     this._password = await bcrypt.hash(this._password, salt);
   }
