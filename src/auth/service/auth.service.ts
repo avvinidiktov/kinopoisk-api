@@ -22,15 +22,18 @@ export class AuthService {
   }
 
   async authenticateUser(authRequest: AuthRequest): Promise<UserDomain> {
-    if (await this.compareCredentials(authRequest))
-      return await this.userService.getUserInfoByEmail(authRequest.email);
-  }
-
-  async compareCredentials(authRequest: AuthRequest): Promise<boolean> {
     return this.userService
       .getUserInfoByEmail(authRequest.email)
-      .then(async (result) => {
-        return await bcrypt.compare(authRequest.password, result._password);
+      .catch(async (err) => {
+        console.log(err);
+        throw new Error('Email not found');
+      })
+      .then(async (user) => {
+        if (await bcrypt.compare(authRequest.password, user._password)) {
+          return user;
+        } else {
+          throw new Error('Passwords did not match');
+        }
       });
   }
 }

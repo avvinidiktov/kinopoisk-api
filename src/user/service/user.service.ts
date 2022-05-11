@@ -13,7 +13,7 @@ export class UserService {
   ) {}
 
   async saveUser(user: UserDomain): Promise<User> {
-    return await this.userRepository.save(user);
+    return await this.userRepository.save(this.userMapper.domainToEntity(user));
   }
 
   async getUserInfoById(id: number): Promise<User> {

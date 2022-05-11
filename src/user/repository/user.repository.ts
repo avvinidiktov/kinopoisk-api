@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserEntity } from '../model/entity/user.entity';
 import { Repository } from 'typeorm';
-import { User } from '../model/user.interface';
 
 @Injectable()
 export class UserRepository {
@@ -11,7 +10,7 @@ export class UserRepository {
     private readonly repository: Repository<UserEntity>,
   ) {}
 
-  async save(user: User): Promise<UserEntity> {
+  async save(user: UserEntity): Promise<UserEntity> {
     return await this.repository
       .save(this.repository.create(user))
       .then((result) => {
