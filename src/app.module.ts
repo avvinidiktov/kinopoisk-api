@@ -19,9 +19,9 @@ const envFilePath: string = getEnvPath(`${__dirname}/common/envs`);
       name: 'pg_main',
     }),
     UserModule,
+    UtilModule,
     AuthModule,
     ReviewModule,
-    UtilModule,
     TypeormModule,
   ],
 })

@@ -1,9 +1,9 @@
-import { UserDomain } from '../../user/model/domain/user.domain';
-import { UserInfoDto } from '../../user/model/dto/user.info.dto';
+import { UserDomain } from '@/user/model/domain/user.domain';
+import { UserInfoDto } from '@/user/model/dto/user.info.dto';
 import { Injectable } from '@nestjs/common';
 import { Builder } from 'builder-pattern';
-import { RegisterRequest } from '../../auth/model/dto/register.request.dto';
-import { UserEntity } from '../../user/model/entity/user.entity';
+import { RegisterRequest } from '@/auth/model/dto/register.request.dto';
+import { UserEntity } from '@/user/model/entity/user.entity';
 
 @Injectable()
 export class UserMapper {
